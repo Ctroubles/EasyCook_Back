@@ -11,6 +11,15 @@ const sequelize = new Sequelize(`postgres://kjlxkjnp:vmir7xSkgLGXySy-h70XlBopoXl
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
+
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conexión exitosa');
+    console.log(sequelize);
+  })
+  .catch(error => {
+    console.error('Error al conectar:', error);
+  });
 const basename = path.basename(__filename);
 
 const modelDefiners = [];

@@ -11,7 +11,6 @@ const { laPrimeraMayuscula } = require('../utils/recipes.utils');
 async function listByname (req, res){
     try {
         const {name} = req.query;
-        // if(!name) throw new Error('Ingresa una receta')     COMENTADA POQUE QUIERO TRAER TODAS LAS RECES SI NO INGRESA UN NOMBRE PARA BUSCAR
         
         let respuesta = await buscarPorNombre(name)
 
