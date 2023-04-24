@@ -6,16 +6,14 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME , DB_PORT
 } = process.env;
 
-// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
-const sequelize = new Sequelize(`postgres://kjlxkjnp:vmir7xSkgLGXySy-h70XlBopoXlpAVKD@babar.db.elephantsql.com/kjlxkjnp`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
+  logging: false,
+  native: false,
 });
 
 sequelize.authenticate()
   .then(() => {
     console.log('Conexión exitosa');
-    console.log(sequelize);
   })
   .catch(error => {
     console.error('Error al conectar:', error);

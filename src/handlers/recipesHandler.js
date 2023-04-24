@@ -42,7 +42,6 @@ async function createRecipe(req,res){
 
         const {healthScore,  imgUrl , dietTypes } = req.body
 
-        console.log((req.body.stepByStep));
 
         const name = laPrimeraMayuscula(req.body.name)
         const stepByStep = laPrimeraMayuscula(req.body.stepByStep)

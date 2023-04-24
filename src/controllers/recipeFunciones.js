@@ -18,7 +18,6 @@ const buscarPorNombre = async(name)=>{
     }: null
 
   const bd = await Recipe.findAll(statement)
-console.log(bd);
   let api = await getRecipesFromApi()
    name ?api = api.filter(element => element.name.toLowerCase().includes(name.toLowerCase())):null
 
