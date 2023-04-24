@@ -23,7 +23,7 @@ require('dotenv').config();
 
 
 const {PORT} = process.env;
-
+console.log("hola");
 // Syncing all the models at once.
 conn.sync().then(() => {
   server.listen(3001, () => {
