@@ -1,19 +1,20 @@
-const { DataTypes } = require("sequelize")
+const { Schema, model }= require("mongoose");
 
-module.exports= (sequelize)=> {
-    sequelize.define('dietType',{
-        id:{
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
+const componentSchema= new Schema(
+    {
         name:{
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+            type: String,
+            required: true,
+        },      
+        dishes: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     },
     {
-        timestamps: false
-    }
-    )
-}
+        toJSON: {
+            getters: true
+        }
+    },
+);
+
+const DietType = model("DietType", componentSchema)
+
+module.exports= DietType;

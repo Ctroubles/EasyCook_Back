@@ -4,7 +4,6 @@ const {
     spawnRecipe,
     obtainDiets,   } = require('../controllers/recipeFunciones');
     
-const {Recipe} = require('../db');
 const { laPrimeraMayuscula } = require('../utils/recipes.utils');
 
 
@@ -17,6 +16,7 @@ async function listByname (req, res){
         res.status(200).send(respuesta)
         
     } catch (error) {
+        console.log(error);
         const test = error.message.includes('402')
         res.status(error.status? error.status : test ? 402 :400).send(error)
     }

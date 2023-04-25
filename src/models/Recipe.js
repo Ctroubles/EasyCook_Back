@@ -1,36 +1,38 @@
-const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
-module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define('recipe', {
-    id:{
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+const { Schema, model }= require("mongoose");
+
+const componentSchema= new Schema(
+    {
+        name:{
+            type: String,
+            required: true,
+            unique:true
+        },      
+        resumenDelPlato:{
+            type: String,
+            required: true,
+        },        
+        healthScore:{
+            type: Number,
+            required: true,
+        },        
+        stepByStep:{
+            type: String,
+            required: true,
+        },        
+        imgUrl:{
+            type: String,
+            required: true,
+        },
+        dietTypes: [{ type: Schema.Types.ObjectId, ref: "DietType" }],
+
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+    {
+        toJSON: {
+            getters: true
+        }
     },
-    resumenDelPlato:{
-      type:DataTypes.STRING(250),
-      allowNull: false,
-    },
-    healthScore:{
-      type: DataTypes.INTEGER,
-    },
-    stepByStep: {
-      type: DataTypes.STRING(600),
-    },
-    imgUrl: {
-      type:DataTypes.STRING,
-    }
-    
-  },
-  {
-    timestamps: false
-  }
-  );
-};
+);
+
+const Recipe = model("Recipe", componentSchema)
+
+module.exports= Recipe;

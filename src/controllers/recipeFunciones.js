@@ -1,27 +1,20 @@
-const { Op } = require("sequelize");
-const {Recipe,DietType} = require('../db.js');
-
+const Recipes = require('../models/Recipe');
+const DietType = require('../models/dietType');
 const { getRecipesFromApi, getRecipeDetail,getDataApi} = require('../helpers/recipeUtils.js')
 
 
+
 const buscarPorNombre = async(name)=>{
-  const statement={
-    include:{
-      model:DietType,
-      through: {
-        attributes: []   /// para que no me traiga los timestamps
-      }
-    },
-  };
-  name? statement.where={
-        name:{[Op.iLike]:`%${name}%`},
-    }: null
-
-  const bd = await Recipe.findAll(statement)
-  let api = await getRecipesFromApi()
-   name ?api = api.filter(element => element.name.toLowerCase().includes(name.toLowerCase())):null
-
-  
+  let bd = await Recipes.find().populate('dietTypes');
+  let api = await getRecipesFromApi();
+  if (name) {
+    bd = bd.filter((recipe) =>
+      recipe.name.toLowerCase().includes(name.toLowerCase())
+    );
+    api = api.filter((recipe) =>
+      recipe.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
   return [...bd, ...api];
 
 }
@@ -37,24 +30,12 @@ const buscarPorId = async (id)=>{
 
     } else {
 
-      info = await Recipe.findByPk(id,{
-        include:{
-          model:DietType,
-          attributes:["name"],
-          through: {
-            attributes: []
-          }
-        },
-      }); 
+      info =  await Laptops.Recipes(id);
       
-      const test = info.dietTypes.map(el=>el.name);
-
-      // info.dataValues.dietTypes = '2'
-
 
     }
 
-    !info? info="No existe ninguna receta con ese id, bro" : null
+    !info? info="No existe ninguna receta con ese id." : null
 
 
     return info;
@@ -74,16 +55,15 @@ const obtainDiets = async()=>{
   diets = diets.map(e=> e =  e[0].toUpperCase() + e.substring(1)) 
 
 
+  diets.forEach(async (diet) => {
+    const existingDiet = await DietType.findOne({ name: diet });
+    if (existingDiet) return;
 
-  diets.forEach(element => {
-    DietType.findOrCreate({
-      where:{
-        name:element
-      }
-    })
+    const dietType = new DietType({ name: diet });
+    await dietType.save();
   });
 
-  const allDiets = await DietType.findAll()
+  const allDiets = await DietType.find()
 
   return allDiets;
 
@@ -97,13 +77,21 @@ const spawnRecipe = async(body) => {
    
     const dietTypes = body.dietTypes;
 
-    const newRecipe =  await Recipe.create(body);
-
-    await obtainDiets()
-
-    await newRecipe.addDietTypes(dietTypes)
-
-    return newRecipe;
+    const dietTypeDocs = await DietType.find({ _id: { $in: dietTypes } });
+    const dietTypeIds = dietTypeDocs.map(dietType => dietType._id);
+  
+    const recipe = new Recipes({
+      name: body.name,
+      description: body.description,
+      imgUrl:body.imgUrl,
+      stepByStep:body.stepByStep,
+      healthScore:body.healthScore,
+      resumenDelPlato:body.resumenDelPlato,
+      dietTypes: dietTypeIds,
+    });
+    await recipe.save();
+    
+    return recipe;
 
 
   } catch (error) {
