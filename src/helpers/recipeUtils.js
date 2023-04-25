@@ -1,58 +1,57 @@
-// const axios = require('axios') ; 
+const axios = require('axios') ; 
 
-// const {API_KEY} = process.env;
+const {API_KEY} = process.env;
 
-// console.log("llegó a recipes helpers");
 
-// const getDataApi = async ()=>await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
-//     .then(response => response.data
-//     )
-//     .then(data => data.results)
+const getDataApi = async ()=>await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
+    .then(response => response.data
+    )
+    .then(data => data.results)
 
-// const getRecipesFromApi = async ()=>{
-//     const apiRaw = await getDataApi()
+const getRecipesFromApi = async ()=>{
+    const apiRaw = await getDataApi()
 
      
-//     apiClean = apiRaw.map(el => {
-//         return {
-//             id : el.id,
-//             imgUrl:el.image,
-//             name : el.title,
-//             dietTypes: el.diets.map(e=>{return{name:e=e[0].toUpperCase()+e.substring(1)}}),
-//             healthScore: el.healthScore,
-//             // resumenDelPlato: el.summary,
-//             // stepByStep: el.analyzedInstructions[0]?el.analyzedInstructions[0].steps:null,
-//         }
-//     })
+    apiClean = apiRaw.map(el => {
+        return {
+            id : el.id,
+            imgUrl:el.image,
+            name : el.title,
+            dietTypes: el.diets.map(e=>{return{name:e=e[0].toUpperCase()+e.substring(1)}}),
+            healthScore: el.healthScore,
+            // resumenDelPlato: el.summary,
+            // stepByStep: el.analyzedInstructions[0]?el.analyzedInstructions[0].steps:null,
+        }
+    })
 
-//     return apiClean
-// }
+    return apiClean
+}
 
 
 
-// const getRecipeDetail = async(id)=>{
+const getRecipeDetail = async(id)=>{
     
-//     const recipeById = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
-//     .then(response => response.data)
+    const recipeById = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
+    .then(response => response.data)
 
 
-//     return   {
-//             id: recipeById.id,
-//             name: recipeById.title,
-//             imgUrl: recipeById.image,
-//             dishTypes: recipeById.dishTypes,
-//             dietTypes: recipeById.diets.map(e=>{return{name:e}}),
-//             resumenDelPlato: recipeById.summary,
-//             healthScore: recipeById.healthScore,
-//             stepByStep: recipeById.instructions,
-//         }
-// }
+    return   {
+            id: recipeById.id,
+            name: recipeById.title,
+            imgUrl: recipeById.image,
+            dishTypes: recipeById.dishTypes,
+            dietTypes: recipeById.diets.map(e=>{return{name:e}}),
+            resumenDelPlato: recipeById.summary,
+            healthScore: recipeById.healthScore,
+            stepByStep: recipeById.instructions,
+        }
+}
 
-// module.exports = {
-//      getRecipesFromApi,
-//      getRecipeDetail,
-//      getDataApi,
-// }
+module.exports = {
+     getRecipesFromApi,
+     getRecipeDetail,
+     getDataApi,
+}
 
 
 
