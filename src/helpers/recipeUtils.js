@@ -34,7 +34,8 @@ const getRecipeDetail = async(id)=>{
     const {data} = await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
 
     const recipeById = data.results.find(e=>e.id==id)
-    return   {
+    if (recipeById) {
+        return   {
             id: recipeById.id,
             name: recipeById.title,
             imgUrl: recipeById.image,
@@ -44,6 +45,8 @@ const getRecipeDetail = async(id)=>{
             healthScore: recipeById.healthScore,
             stepByStep: recipeById.summary,
         }
+    }
+
 
 }
 

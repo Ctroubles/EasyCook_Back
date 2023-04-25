@@ -23,11 +23,12 @@ const buscarPorNombre = async(name)=>{
 
 const buscarPorId = async (id)=>{
     let info;
-    if (id.length>9) {
-      info = await Recipes.findById(id);
+    const recipeInApi =  await getRecipeDetail(id)
+
+    if (recipeInApi) {
+      info = recipeInApi;
     } else {
-      info =  await getRecipeDetail(id)
-      
+      info = await Recipes.findById(id);
     }
 
     !info? info="No existe ninguna receta con ese id." : null
