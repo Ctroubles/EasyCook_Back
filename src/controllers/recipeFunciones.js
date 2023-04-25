@@ -24,14 +24,11 @@ const buscarPorNombre = async(name)=>{
 const buscarPorId = async (id)=>{
   let info;
 
-    if (id.length > 4) {
-
-      info = await getRecipeDetail(id)
-
+    const respBD = await   Recipes.findById(id);
+    if (respBD) {
+      info = respBD;
     } else {
-
-      info =  await Laptops.Recipes(id);
-      
+      info =  await getRecipeDetail(id)
 
     }
 
