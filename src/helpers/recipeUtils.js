@@ -31,20 +31,20 @@ const getRecipesFromApi = async ()=>{
 
 const getRecipeDetail = async(id)=>{
     
-    const recipeById = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
-    .then(response => response.data)
+    const {data} = await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
 
-
+    const recipeById = data.results.find(e=>e.id==id)
     return   {
             id: recipeById.id,
             name: recipeById.title,
             imgUrl: recipeById.image,
             dishTypes: recipeById.dishTypes,
-            dietTypes: recipeById.diets.map(e=>{return{name:e}}),
+            dietTypes: recipeById.diets,
             resumenDelPlato: recipeById.summary,
             healthScore: recipeById.healthScore,
-            stepByStep: recipeById.instructions,
+            stepByStep: recipeById.summary,
         }
+
 }
 
 module.exports = {
