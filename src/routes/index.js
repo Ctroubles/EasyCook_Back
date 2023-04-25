@@ -5,6 +5,7 @@ const router = Router();
 
 const {listByname, listById, createRecipe,getDiets} = require('../handlers/recipesHandler.js')
 
+console.log("llegó a index routes")
 
 ///////ACA TENGO QUE PONER LOS MIDDLEWARES CONTROLADORES
 

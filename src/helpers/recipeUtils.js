@@ -2,6 +2,7 @@ const axios = require('axios') ;
 
 const {API_KEY} = process.env;
 
+console.log("llegó a recipes utils");
 
 const getDataApi = async ()=>await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
     .then(response => response.data
