@@ -14,10 +14,9 @@ main()
     }
     console.log("se escribió todo bien creo");
   });
-
+  console.log(err);
 })
 
-console.log("hey");
 async function main() {
   mongoose.set('strictQuery', true);
   // await mongoose.connect(`mongodb+srv://admin:${DB_PASSWORD}@cluster0.pku4cwo.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`, { useNewUrlParser: true });
