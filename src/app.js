@@ -22,7 +22,6 @@ server.use((req, res, next) => {
   next();
 });
 
-console.log("llegó a app.js")
 server.use('/', routes);
 
 // Error catching endware.

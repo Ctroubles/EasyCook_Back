@@ -1,19 +1,20 @@
-const {
-    buscarPorNombre,
-    buscarPorId,
-    spawnRecipe,
-    obtainDiets,   } = require('../controllers/recipeFunciones');
+// const {
+//     buscarPorNombre,
+//     buscarPorId,
+//     spawnRecipe,
+//     obtainDiets,   } = require('../controllers/recipeFunciones');
     
-const { laPrimeraMayuscula } = require('../utils/recipes.utils');
+// const { laPrimeraMayuscula } = require('../utils/recipes.utils');
 
 
 async function listByname (req, res){
     try {
-        const {name} = req.query;
+        // const {name} = req.query;
         
-        let respuesta = await buscarPorNombre(name)
+        // let respuesta = await buscarPorNombre(name)
 
-        res.status(200).send(respuesta)
+        // res.status(200).send(respuesta)
+        res.status(200).send([1,2])
         
     } catch (error) {
         console.log(error);
@@ -23,53 +24,53 @@ async function listByname (req, res){
 }
 
 async function listById(req,res){
-    try {
-        const {id} = req.params;
+    // try {
+    //     const {id} = req.params;
         
-        const repuesta = await buscarPorId(id)
+    //     const repuesta = await buscarPorId(id)
         
-        res.status(200).send(repuesta)
+    //     res.status(200).send(repuesta)
 
-    } catch (error) {
-        const test = error.message.includes('402')
-        res.status(error.status? error.status : test ? 402: 404).send(error)
-    }
+    // } catch (error) {
+    //     const test = error.message.includes('402')
+    //     res.status(error.status? error.status : test ? 402: 404).send(error)
+    // }
 }
 
 
 async function createRecipe(req,res){
-    try {
+    // try {
 
-        const {healthScore,  imgUrl , dietTypes } = req.body
+    //     const {healthScore,  imgUrl , dietTypes } = req.body
 
 
-        const name = laPrimeraMayuscula(req.body.name)
-        const stepByStep = laPrimeraMayuscula(req.body.stepByStep)
-        const resumenDelPlato = laPrimeraMayuscula(req.body.resumenDelPlato)
+    //     const name = laPrimeraMayuscula(req.body.name)
+    //     const stepByStep = laPrimeraMayuscula(req.body.stepByStep)
+    //     const resumenDelPlato = laPrimeraMayuscula(req.body.resumenDelPlato)
 
         
-        const resultado = await spawnRecipe({name,resumenDelPlato, healthScore, stepByStep,
-            imgUrl , dietTypes});
+    //     const resultado = await spawnRecipe({name,resumenDelPlato, healthScore, stepByStep,
+    //         imgUrl , dietTypes});
     
-        res.status(200).send(resultado);
+    //     res.status(200).send(resultado);
         
-    } catch (error) {
-        console.log(error);
-        const test = error.message.includes('402')
-        res.status(error.status?error.status:test?402:400).send(error)
-    }
+    // } catch (error) {
+    //     console.log(error);
+    //     const test = error.message.includes('402')
+    //     res.status(error.status?error.status:test?402:400).send(error)
+    // }
 
 }
 
 async function getDiets(req,res){
-    try {
-        const dietas = await obtainDiets()
+    // try {
+    //     const dietas = await obtainDiets()
 
-        res.send(dietas)
+    //     res.send(dietas)
         
-    } catch (error) {
-        res.status(400).send(error.message)
-    }
+    // } catch (error) {
+    //     res.status(400).send(error.message)
+    // }
 }
 
 
