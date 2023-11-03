@@ -1,5 +1,5 @@
-function laPrimeraMayuscula(string){
-    if(typeof(string)!== 'string') throw Error('El dato envíado no es un string')
+function capitalizeFirstLetter(string){
+    if(typeof(string)!== 'string') return ''
     
     const String = string[0].toUpperCase() + string.substring(1)
 
@@ -8,5 +8,5 @@ function laPrimeraMayuscula(string){
 }
 
 module.exports={
-    laPrimeraMayuscula
+    capitalizeFirstLetter: capitalizeFirstLetter
 }

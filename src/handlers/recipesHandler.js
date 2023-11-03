@@ -4,7 +4,7 @@ const {
     spawnRecipe,
     obtainDiets,   } = require('../controllers/recipeFunciones');
     
-const { laPrimeraMayuscula } = require('../utils/recipes.utils');
+const { capitalizeFirstLetter } = require('../utils/recipes.utils');
 
 
 async function listByname (req, res){
@@ -27,6 +27,8 @@ async function listById(req,res){
         const {id} = req.params;
         
         const repuesta = await buscarPorId(id)
+
+        if (!repuesta) throw new Error()
         
         res.status(200).send(repuesta)
 
@@ -43,9 +45,9 @@ async function createRecipe(req,res){
         const {healthScore,  imgUrl , dietTypes } = req.body
 
 
-        const name = laPrimeraMayuscula(req.body.name)
-        const stepByStep = laPrimeraMayuscula(req.body.stepByStep)
-        const resumenDelPlato = laPrimeraMayuscula(req.body.resumenDelPlato)
+        const name = capitalizeFirstLetter(req.body.name)
+        const stepByStep = capitalizeFirstLetter(req.body.stepByStep)
+        const resumenDelPlato = capitalizeFirstLetter(req.body.resumenDelPlato)
 
         
         const resultado = await spawnRecipe({name,resumenDelPlato, healthScore, stepByStep,

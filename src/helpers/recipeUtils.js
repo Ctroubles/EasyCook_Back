@@ -3,22 +3,22 @@ const axios = require('axios') ;
 const {API_KEY} = process.env;
 
 
-const getDataApi = async ()=>await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
+const getDataApi = async ()=>await axios.get(`https://api.spoonacular.com/recipes/random?number=10&apiKey=522d057934b94427ac6da7fc3468d36a`)
     .then(response => response.data
     )
-    .then(data => data.results)
+    .then(data => data.recipes)
 
 const getRecipesFromApi = async ()=>{
     const apiRaw = await getDataApi()
 
      
-    apiClean = apiRaw.map(el => {
+    apiClean = apiRaw.map(recipe => {
         return {
-            id : el.id,
-            imgUrl:el.image,
-            name : el.title,
-            dietTypes: el.diets.map(e=>{return{name:e=e[0].toUpperCase()+e.substring(1)}}),
-            healthScore: el.healthScore,
+            id : recipe.id,
+            imgUrl:recipe.image,
+            name : recipe.title,
+            dietTypes: recipe.dishTypes.map(diet=> ({name: diet[0].toUpperCase()+diet.substring(1)})),
+            healthScore: recipe.healthScore,
             // resumenDelPlato: el.summary,
             // stepByStep: el.analyzedInstructions[0]?el.analyzedInstructions[0].steps:null,
         }
@@ -31,7 +31,7 @@ const getRecipesFromApi = async ()=>{
 
 const getRecipeDetail = async(id)=>{
     
-    const {data} = await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
+    const {data} = await axios.get(`https://api.spoonacular.com/recipes/random?number=10&apiKey=522d057934b94427ac6da7fc3468d36a`)
 
     const recipeById = data.results.find(e=>e.id==id)
     if (recipeById) {
